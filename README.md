@@ -17,6 +17,16 @@ The microstructural images were processed using computer vision techniques and a
 
 Every image was processed and was visually observed for quality assurance; images at a magnification within the range 2500X-5000X are used; magnifications of 1000X and above 10,000X are discarded, as well as images out of focus and images with no significant information. Finally, every image was split into patches of size 256x256 to generate the ground truth dataset for model training and evaluation. 
 
+The percentage of each class is presented in the next box plots according to the time degradation as it can be seen the relation between the percentage of each class against the degradation time
+
+<img width="1359" height="415" alt="image" src="https://github.com/user-attachments/assets/128f73f5-993b-457e-88dc-c87859733176" />
+
+An example of a reference image for file "Acero T0B-12_e.jpg"
+
+<img width="1037" height="630" alt="image" src="https://github.com/user-attachments/assets/0fd94c15-c83f-4a5b-ace7-865fb6acf987" />
+
+
+<img width="925" height="615" alt="image" src="https://github.com/user-attachments/assets/526a3542-c8ba-4778-b583-3ecb46a26557" />
 
 **Methodology**
 
