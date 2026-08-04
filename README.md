@@ -23,10 +23,8 @@ The percentage of each class is presented in the next box plots according to the
 
 An example of a reference image for file "Acero T0B-12_e.jpg"
 
-<img width="1037" height="630" alt="image" src="https://github.com/user-attachments/assets/0fd94c15-c83f-4a5b-ace7-865fb6acf987" />
+<img width="1768" height="619" alt="image" src="https://github.com/user-attachments/assets/4e2af2c1-7c0f-4426-9950-8c4bc7dadb71" />
 
-
-<img width="925" height="615" alt="image" src="https://github.com/user-attachments/assets/526a3542-c8ba-4778-b583-3ecb46a26557" />
 
 **Methodology**
 
