@@ -20,5 +20,15 @@ Every image was processed and was visually observed for quality assurance; image
 
 **Methodology**
 
+A U-Net model was selected initially to perform the segmentation of a microscope image, and performance was measured by means of accuracy, Jaccard, and IoU. This resulted in satisfactory results
+
+
+As the main purpose of the research is to correlate the degradation process against time, T variable is also considered a valuable parameter that can be used to give extra information to the DL model. Initially, a Physics-Informed Network (PINN) by incorporating the Avrami-Kolmogorov (JMAK) phase transformation kinetic model into the loss function. A Physics-Informed Neural Network (PINN) is a neural network that embeds physical laws, expressed as differential equations, directly into its loss function to constrain model learning. However, incorporating this temporal kinetic penalty into a standard U-Net architecture yielded no statistically significant improvement over an unconstrained baseline model.
+
+To have a stronger influence on the model from the time parameter, a conditioned network was next explored, followed by the modulated FiLM architecture. This network was originally presented as a successful framework to process images with data coming from different questions about the image. In our approach, this multimodal system only involves the image alongside a time variable that determines the age degradation, thus demonstrating the relevance of modulating the network with this parameter. 
+
+
+However, to address the problem of determining time degradation, a modification of the original FiLM is proposed, which we name FiLM+D as it adds a demodulation process. The proposed framework addresses both the forward conditioning (modulation) and the inverse inference (demodulation) of a continuous physical parameter associated with microstructural degradation in spheroidal geometries. 
+
 
  
