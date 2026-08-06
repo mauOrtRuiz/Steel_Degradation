@@ -60,15 +60,14 @@ Performance was measured against the ground truth over the 10 selected images an
 
 Incorporating the +D auxiliary task yielded substantial gains across all evaluated microstructural classes. This approach aligns with the principles of Multi-Task Learning (MTL), first introduced by Caruana (1997). By training the network to predict the auxiliary variable alongside segmenting the images, the architecture exploits shared latent representations—benefiting from the core MTL principle where 'learning tasks in parallel while using a shared representation [allows] what is learned for each task [to] help other tasks be learned better.'
 
-**Conclusions**
-Key Research Contributions
-Markdown
-* Enhanced Feature Conditioning via FiLM Integration: Incorporating Feature-wise Linear Modulation (FiLM) into the standard U-Net architecture yields a measurable performance boost over the baseline model by effectively modulating intermediate feature maps with temporal heat-treatment metadata.
+**Research Contributions**
 
-Superior Accuracy via Auxiliary Multi-Task Learning (+D): Introducing an auxiliary time-demodulation regression branch (+D) creates a powerful inductive bias that dramatically increases overall segmentation accuracy—reaching 95.69% mIoU (excluding outliers)—with substantial gains in visually ambiguous transitional phases like segmented (+8.93%) and spheroidized (+5.96%) lamellae.
+* Enhanced segmentation based on Feature Conditioning (FiLM Integration): Incorporating Feature-wise Linear Modulation (FiLM) into the standard U-Net architecture yields a measurable performance  over the baseline model by effectively modulating intermediate feature maps with temporal heat-treatment metadata.
 
-Computational Efficiency and Optimized Training Dynamics: The multi-task framework optimizes shared latent representations, accelerating training convergence and reducing overall computational training time compared to training standalone single-task models.
+* Superior Accuracy via Auxiliary Multi-Task Learning (+D): Introducing an auxiliary time-demodulation regression branch (+D) creates a powerful inductive bias that dramatically increases overall segmentation accuracy—reaching 95.69% mIoU (excluding outliers)—with substantial gains in visually ambiguous transitional phases like segmented (+8.93%) and spheroidized (+5.96%) lamellae.
 
-Direct Microstructural Degradation Time Estimation: The auxiliary branch enables the model to solve an inverse problem: accurately estimating heat-treatment / degradation time directly from raw micrographs during blind inference, eliminating reliance on explicit input metadata.
+* Computational Efficiency and Optimized Training Dynamics: The multi-task framework optimizes shared latent representations, accelerating training convergence and reducing overall computational training time compared to training standalone single-task models.
 
-Localized Degradation Heatmapping: Beyond scalar time estimation, the architecture allows for spatial mapping of degradation levels across a single image, generating visual heatmaps that identify micro-scale structural variations and heterogeneous phase evolution within the same specimen.
+* Direct Microstructural Degradation Time Estimation: The auxiliary branch enables the model to solve an inverse problem: accurately estimating heat-treatment / degradation time directly from raw micrographs during blind inference, eliminating reliance on explicit input metadata.
+
+* Localized Degradation Heatmapping: Beyond scalar time estimation, the architecture allows for spatial mapping of degradation levels across a single image, generating visual heatmaps that identify micro-scale structural variations and heterogeneous phase evolution within the same specimen.
