@@ -1,13 +1,19 @@
 # Steel_Degradation
 End-to-end FiLM architecture for spheroidal feature enhancement, dual parameter ($T$) modulation-demodulation, and localized 256x256 degradation heatmaps.
 
+
+**Abstract**
+The progressive degradation of microstructural low-carbon steel after long-term service is determined by spheroidization observed by scanning electron microscopy (SEM). While traditional computer vision techniques struggle to accurately quantify these complex morphological evolutions, deep learning offers robust alternatives. In this study, we propose a Feature-wise Linear Modulation/Demodulation (FiLM) based Multimodal U-Net architecture designed specifically for the precise segmentation and analysis of microstructural phase degradation. By integrating FiLM layers into the U-Net, our architecture dynamically conditions the main backbone of U-Net feature maps on complementary data modalities—such as thermal history parameters, temperature etc. This multimodal fusion allows the network to learn highly complex, context-aware representations of phase boundaries and morphological anomalies that traditional unimodal networks overlook.
+Our results demonstrate a significant leap in segmentation performance, achieving an overall Mean Intersection over Union (mIoU) improvement of over 12% compared to standard U-Net baselines, with accuracy gains reaching up to 18% in highly degraded and spheroidized microstructural phases. Building upon this modulated backbone, we extend the architecture into a unified modulator-demodulator framework (UNet-FiLM+D). While the forward path uses thermal history parameters to condition feature maps for precise segmentation, an integrated inverse regression head demodulates the latent space representation directly from the microstructural patterns. This allows the network to function as a non-destructive "microstructural clock," accurately predicting the equivalent degradation exposure time (T) and mapping spatial damage heterogeneity through patch-wise heatmaps. Ultimately, this dual framework bridges the gap between context-aware image segmentation and quantitative materials prognosis.
+
+
+
 The present work presents a Deep Learning framework for the analysis and degradation-age estimation of microstructural low-carbon steel after long-term service.
 A novel Feature-wise Linear Modulator-Demodulator (FiLM+D) network is proposed and trained for the spheroidization estimation and degradation exposure time determination.
 
 **The Data**
 
-To simulate the natural degradation experienced by ferrite-perlite steels during service, selected low carbonite steel was subjected to an artificial aging treatment via isothermal heating in a laboratory furnace, followed by air cooling. From this process, a set of optical microscopy images was scanned to observe the microstructural evolution across different thermal aging intervals: $T = 0$, $500$, $1000$, and $1500$ hours (Thesis: DESARROLLO DE UN ALGORITMO DE PROCESAMIENTO 
-DE IMÁGENES PARA LA CUANTIFICACIÓN DEL ENVEJECIMIENTO ARTIFICIAL EN ACEROS AL CARBONO by Nayte Guadalupe López Sánchez)
+To simulate the natural degradation experienced by ferrite-perlite steels during service, selected low-carbon steel was subjected to an artificial aging treatment via isothermal heating in a laboratory furnace, followed by air cooling. From this process, a set of optical microscopy images was scanned to observe the microstructural evolution across different thermal aging intervals: $T = 0$, $500$, $1000$, and $1500$ hours (Based on Thesis by Nayte Guadalupe López Sánchez)
 
 **Ground Truth Dataset Construction**
 
@@ -15,9 +21,9 @@ The microstructural images were processed using computer vision techniques and a
 
 <img width="866" height="268" alt="image" src="https://github.com/user-attachments/assets/3ef31803-b14f-47a1-a7f9-0262c3ee80b5" />
 
-Every image was processed and was visually observed for quality assurance; images at a magnification within the range 2500X-5000X are used; magnifications of 1000X and above 10,000X are discarded, as well as images out of focus and images with no significant information. Finally, every image was split into patches of size 256x256 to generate the ground truth dataset for model training and evaluation. 
+Every image was processed and visually observed for quality assurance; images at a magnification within the range 2500X-5000X are used; magnifications of 1000X and above 10,000X are discarded, as well as images out of focus and images with no significant information. Finally, every image was split into patches of size 256x256 to generate the ground truth dataset for model training and evaluation. 
 
-The percentage of each class is presented in the next box plots according to the time degradation as it can be seen the relation between the percentage of each class against the degradation time
+The percentage of each class is presented in the next box plots according to the time degradation; as can be seen the relation between the percentage of each class and the degradation time
 
 <img width="1359" height="415" alt="image" src="https://github.com/user-attachments/assets/128f73f5-993b-457e-88dc-c87859733176" />
 
@@ -28,15 +34,19 @@ An example of a reference image for file "Acero T0B-12_e.jpg"
 
 **Methodology**
 
-A U-Net model was selected initially to perform the segmentation of a microscope image, and performance was measured by means of accuracy, Jaccard, and IoU. This resulted in satisfactory results
+A U-Net model was selected initially to perform the segmentation of a microscope image, and performance was measured by means of accuracy, Jaccard, and IoU. This model has been extensively used in the medical field, and results showed satisfactory results.
 
 
-As the main purpose of the research is to correlate the degradation process against time, T variable is also considered a valuable parameter that can be used to give extra information to the DL model. Initially, a Physics-Informed Network (PINN) by incorporating the Avrami-Kolmogorov (JMAK) phase transformation kinetic model into the loss function. A Physics-Informed Neural Network (PINN) is a neural network that embeds physical laws, expressed as differential equations, directly into its loss function to constrain model learning. However, incorporating this temporal kinetic penalty into a standard U-Net architecture yielded no statistically significant improvement over an unconstrained baseline model.
+As the main purpose of the research is to correlate the degradation process against time, the T variable in the dataset indicates the time exposed directly to UV light to accelerate degratatión; however, it can be asociated to the aging time and is considered a valuable parameter that can be used to give extra information to the DL model. Initially, a Physics-Informed Network (PINN) was evaluated by incorporating the Avrami-Kolmogorov (JMAK) phase transformation kinetic model into the loss function. A Physics-Informed Neural Network (PINN) is a neural network that embeds physical laws, expressed as differential equations, directly into its loss function to constrain model learning. However, incorporating this temporal kinetic penalty into a standard U-Net architecture yielded no statistically significant improvement over an unconstrained baseline model.
 
-To have a stronger influence on the model from the time parameter, a conditioned network was next explored, followed by the modulated FiLM architecture. This network was originally presented as a successful framework to process images with data coming from different questions about the image. In our approach, this multimodal system only involves the image alongside a time variable that determines the age degradation, thus demonstrating the relevance of modulating the network with this parameter. 
-
-
-However, to address the problem of determining time degradation, a modification of the original FiLM is proposed, which we name FiLM+D as it adds a demodulation process. The proposed framework addresses both the forward conditioning (modulation) and the inverse inference (demodulation) of a continuous physical parameter associated with microstructural degradation in spheroidal geometries. 
+To have a stronger influence of the model from the time parameter, a conditioned network was next explored, followed by the modulated FiLM architecture. This network was originally presented as a successful framework to process images with data coming from different questions about the image. In our approach, this multimodal system only involves the image alongside a time variable that determines the age degradation, thus demonstrating the relevance of modulating the network with this parameter. This model was successfully trained, with faster convergence and improved training accuracy. Moreover, accuracy was also improved in the overall results.
 
 
- 
+To address the problem of determining time degradation, a modification of the original FiLM is proposed, which we name FiLM+D, in which a demodulation branch is integrated into the previous FiLM model, removing the conditional input. Thus, this framework addresses both the forward conditioning (modulation) and the inverse inference (demodulation) of a continuous physical parameter associated with microstructural degradation in spheroidal geometries. Transfer learning was used to train the model by using the previous coefficients obtained from the FiLM model. Because this model is almost equal to the FiLM model, the training time was much faster, as can be seen in the accuracy and loss curves. Blue is the standard U-Net, green is the FiLM model, and red is the FiLM+D (our contribution). As can be seen in the training, the model completed the training in less than half the epochs (mainly due to transfer learning, and also because both are indeed almost the same architecture).
+
+<img width="1363" height="412" alt="image" src="https://github.com/user-attachments/assets/16c1df0c-4d8c-45b0-b225-d37826686ce6" />
+
+
+ ** Results**
+
+ A subset of 10 images of higher resolution 
