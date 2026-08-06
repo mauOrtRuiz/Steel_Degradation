@@ -47,6 +47,8 @@ To address the problem of determining time degradation, a modification of the or
 <img width="1363" height="412" alt="image" src="https://github.com/user-attachments/assets/16c1df0c-4d8c-45b0-b225-d37826686ce6" />
 
 
- ** Results**
+ **Results**
 
- A subset of 10 images of higher resolution 
+ A subset of 10 images of higher resolution were tested and segmented by this framework and segmentation performance was
+ <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
+
