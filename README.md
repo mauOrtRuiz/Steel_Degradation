@@ -52,3 +52,7 @@ To address the problem of determining time degradation, a modification of the or
  A subset of 10 images of higher resolution were tested and segmented by this framework and segmentation performance was
  <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
 
+Performance was measured against the ground truth over the 10 selected images and mean IoU was computed. The results are presented in the next table
+<img width="816" height="445" alt="image" src="https://github.com/user-attachments/assets/a2e5170c-3473-4c8e-9259-52ac8964b485" />
+
+A considerable result is observed, the overall performance was improved in all the classes after implementing the +D operation the model improves significally. This operation is sometimes frefered as miltitask learning MTL, as it was first presented by Carcuana (1997) as refered by Carcuana "by learning tasks in parallel while using a shared representation; what is learned for each task can help other tasks be learned better." 
