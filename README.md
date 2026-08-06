@@ -51,7 +51,7 @@ To address the problem of determining time degradation, a modification of the or
 
  **Results**
 
- A subset of 10 images of higher resolution were tested and segmented by this framework, and segmentation performance was obtained. For the +D proposal also time degradation was estimated.
+ A subset of 10 images of higher resolution were tested and segmented by this framework, and segmentation performance was obtained. For the +D proposal, time degradation was also estimated.
  
  <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
 
@@ -75,6 +75,9 @@ Incorporating the +D auxiliary task yielded substantial gains across all evaluat
 * Localized Degradation Heatmapping: Beyond scalar time estimation, the architecture allows for spatial mapping of degradation levels across a single image, generating visual heatmaps that identify micro-scale structural variations and heterogeneous phase evolution within the same specimen.
 
 **Work to do**
+
 To prepare an inference test for the segmentation and Time estimation and elaborate a heatmap.
 
-Retrain the same model and experiment for a multiclass estimation-added task, instead of the regression task. The estimated clases are: los, moderate and severe degradation. 
+Retrain the same model and perform an experiment for a multiclass estimation-added task, instead of the regression task. The proposed experiment is to estimate: low, moderate, and severe degradation. 
+
+The current experiment was performed on Steel 1020, there still remains the analysis of Steel 1045. Maybe present the results for each type of steel and overall results.
