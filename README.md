@@ -25,11 +25,14 @@ The microstructural images were processed using computer vision techniques and a
 
 Every image was processed and visually observed for quality assurance; images at a magnification within the range 2500X-5000X are used; magnifications of 1000X and above 10,000X are discarded, as well as images out of focus and images with no significant information. Finally, every image was split into patches of size 256x256 to generate the ground truth dataset for model training and evaluation. 
 
-The percentage of each class is presented in the next box plots according to the time degradation; as can be seen, there is a relationship between the percentage of each class and the degradation time
+The percentage of each class is presented in the next box plots according to the time degradation; as can be seen, there is a relationship between the percentage of each class and the degradation time. This representation was observed for both types of steel: 1020 and 1045
 
 
+Distribution for steel 1020
 
 <img width="1289" height="392" alt="Figure_1" src="https://github.com/user-attachments/assets/ccb24958-8108-49f6-a02e-80319f6098cb" />
+
+Distribution for steel 1045
 
 
 <img width="1289" height="392" alt="Figure_1_b" src="https://github.com/user-attachments/assets/841ec6f3-b90b-4388-8080-4b7d2577e9ec" />
