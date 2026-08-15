@@ -67,7 +67,8 @@ To address the problem of determining time degradation, a modification of the or
 Performance was measured against the ground truth over the 10 selected images and mean IoU was computed. The results are presented in the next table
 
 
-<img width="816" height="445" alt="image" src="https://github.com/user-attachments/assets/a2e5170c-3473-4c8e-9259-52ac8964b485" />
+<img width="866" height="329" alt="image" src="https://github.com/user-attachments/assets/9c70754f-f01b-4dca-8810-9e4d7886e8a1" />
+
 
 Incorporating the +D auxiliary task yielded substantial gains across all evaluated microstructural classes. This approach aligns with the principles of Multi-Task Learning (MTL), first introduced by Caruana (1997). By training the network to predict the auxiliary variable alongside segmenting the images, the architecture exploits shared latent representations—benefiting from the core MTL principle where 'learning tasks in parallel while using a shared representation [allows] what is learned for each task [to] help other tasks be learned better.'
 
