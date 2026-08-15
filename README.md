@@ -27,7 +27,13 @@ Every image was processed and visually observed for quality assurance; images at
 
 The percentage of each class is presented in the next box plots according to the time degradation; as can be seen, there is a relationship between the percentage of each class and the degradation time
 
-<img width="1359" height="415" alt="image" src="https://github.com/user-attachments/assets/128f73f5-993b-457e-88dc-c87859733176" />
+
+
+<img width="1289" height="392" alt="Figure_1" src="https://github.com/user-attachments/assets/ccb24958-8108-49f6-a02e-80319f6098cb" />
+
+
+<img width="1289" height="392" alt="Figure_1_b" src="https://github.com/user-attachments/assets/841ec6f3-b90b-4388-8080-4b7d2577e9ec" />
+
 
 An example of a reference image for file "Acero T0B-12_e.jpg"
 
