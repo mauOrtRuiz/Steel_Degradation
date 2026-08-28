@@ -51,7 +51,9 @@ It can be seen that after a degradation process aplied by 1500 UV time there is 
 
 The proposed pipeline evaluates three distinct computational frameworks to estimate microstructural degradation time (0 h, 500 h, 1,000 h, and 1,500 h) under accelerated ultraviolet (UV) exposure using high-resolution SEM micrographs. The methodological workflow comprises data preparation, model training, statistical thresholding, and macro-level performance evaluation across all approaches.
 
-Approach 1: U-Net Semantic Segmentation and Morphological Thresholding. A U-Net architecture was trained to perform semantic segmentation of the microstructural phases. Following model convergence:The segmented masks were processed to extract morphological metrics, specifically quantifying the relative phase area fraction (%F) of degraded regions and lamellar structures.A rigorous statistical analysis was conducted on the distribution of %F across exposure intervals (0h to 1500h) to establish quantitative cutoff thresholds (decision boundaries).Degradation time was assigned deterministically based on these empirical percentage thresholds.
+Approach 1: U-Net Semantic Segmentation and Morphological Thresholding. A U-Net architecture was trained to perform semantic segmentation of the microstructural phases. Following model convergence:The segmented masks were processed to extract morphological metrics, specifically quantifying the relative phase area fraction (%F) of degraded regions and lamellar structures. A rigorous statistical analysis was conducted on the distribution of %F across exposure intervals (0h to 1500h) to establish quantitative cutoff thresholds (decision boundaries). Degradation time was assigned deterministically based on these empirical percentage thresholds. The cut off values established are
+<img width="521" height="164" alt="image" src="https://github.com/user-attachments/assets/10eba7b9-54f0-4108-8c1f-90d30ba65631" />
+
 
 Approach 2: Direct Classification via ResNet-50
 A ResNet-50 deep convolutional neural network was trained for direct, end-to-end multi-class classification using the original, unsegmented image patches:
@@ -83,15 +85,45 @@ Training for the Resnet 50 model
 
  Both deep learning architectures, U-Net and ResNet-50, were trained using PyTorch on an NVIDIA GPU environment with identical data splitting strategies to ensure a fair experimental comparison. To enhance model generalization and mitigate overfitting across microstructural variations, dynamic data augmentation techniques—including random horizontal and vertical flips, affine transformations, and intensity adjustments—were applied continuously throughout the training process. All input patches were resized to a standardized resolution of 256×256 pixels.The U-Net model was optimized for pixel-wise multi-class semantic segmentation of the microstructural phases. To effectively handle potential class imbalances across fine lamellar and spheroidized features, a hybrid loss function combining Focal Loss and Dice Loss was implemented. Optimization was driven by the AdamW algorithm with an initial learning rate of 1 x 10^(-4) and a weight decay coefficient of 1x 10^(-4).  The network was trained for up to 35 epochs using a batch size of 16, with early stopping enforced after 15 epochs of non-improving validation Dice similarity scores to prevent over-segmentation artifacts. The ResNet-50 architecture was initialized with ImageNet pre-trained weights and fine-tuned for direct four-class categorization corresponding to the UV exposure intervals of 0, 500, 1000, and 1500 hours using unsegmented patches. The model was optimized using standard categorical cross-entropy loss to evaluate predicted softmax probabilities against ground-truth labels. 
  
- <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
 
-Performance was measured against the ground truth over the 10 selected images and mean IoU was computed. The results are presented in the next table
 
+Segmentation performance was measured against the ground truth over the 15 selected images and mean IoU was computed only for the UNET model. The results are presented in the next table
 
 <img width="866" height="329" alt="image" src="https://github.com/user-attachments/assets/9c70754f-f01b-4dca-8810-9e4d7886e8a1" />
 
+An example of the segmentation compared to the reference ground truth is presented in the next image
 
-Incorporating the +D auxiliary task yielded substantial gains across all evaluated microstructural classes. This approach aligns with the principles of Multi-Task Learning (MTL), first introduced by Caruana (1997). By training the network to predict the auxiliary variable alongside segmenting the images, the architecture exploits shared latent representations—benefiting from the core MTL principle where 'learning tasks in parallel while using a shared representation [allows] what is learned for each task [to] help other tasks be learned better.'
+<img width="1357" height="403" alt="image" src="https://github.com/user-attachments/assets/9f55ddd9-c3dd-46f5-b583-6f2f85a2001c" />
+
+
+Next, performance for T interval estimation over the 4 classes was evaluated by means of the accuracy computed over the blind dataset for the 2 deep learning models. In the case of measure of the fractal analysis, as this methodology is not based in a training and validation process the same set of training images were all used for the statistical analysis by means of fractal estimation. 
+
+The comparative performance of the three evaluated approaches—classical Box-Counting Fractal Dimension (D), U-Net semantic segmentation with phase fraction (%F) quantification, and ResNet-50 direct classification with macro-level soft-voting—was benchmarked on the independent blind test dataset comprising 15 fully isolated SEM micrographs across the four UV exposure stages (0h, 500h, 1,000h, and 1,500h).The classical deterministic Fractal Dimension approach demonstrated severe topological limitations, yielding an overall accuracy of only 20.00% with a macro-averaged precision of 0.1958, recall of 0.2083, and F1 of 0.1984. Analysis of the individual class metrics revealed that the model achieved low F1 for 0h (0.2857), 500h (0.2857), and 1,000 h (0.2222), while completely failing to identify the advanced 1,500 h exposure stage, resulting in a precision, recall, and F1 of $0.0000$. Inferential statistical testing confirmed that the global mean differences in fractal dimension were statistically insignificant across the blind sample set (ANOVA -test = 0.1844, p = 0.9048$; Kruskal-Wallis H -test = 1.2542, p = 0.7400), proving that first-order boundary edge density signatures overlap substantially across exposure times and fail to provide reliable class separability, as can be seen in the next figure.
+
+<img width="1156" height="637" alt="image" src="https://github.com/user-attachments/assets/1cdf4ec6-5f67-4c84-8714-415cd64c2292" />
+
+Also the confusion matrix computed over the full training dataset
+<img width="722" height="628" alt="image" src="https://github.com/user-attachments/assets/5cce12e3-355f-424a-85c3-eea1548c47ed" />
+
+
+
+The U-Net semantic segmentation framework coupled with empirical phase fraction thresholding achieved a moderate performance, attaining an overall classification accuracy of 66.67\% with a macro-averaged F1-score of 65.00%. By successfully isolating microstructural phases and calculating relative area percentages, the model effectively captured the primary trend of surface and phase transformation. However, its accuracy was constrained by rigid thresholding boundaries and localized segmentation errors along complex phase interfaces, leading to misclassifications in intermediate degradation stages. The corresponding confusion matrix is
+
+<img width="794" height="635" alt="image" src="https://github.com/user-attachments/assets/5db8c34b-9a9b-4b0c-9239-cf883ad14795" />
+
+
+In contrast, the ResNet-50 architecture utilizing macro-level soft-voting probability inference demonstrated superior classification capability, achieving flawless performance with an overall accuracy of 100.00% and a macro-averaged precision, recall, and F1-score of 1.0000 (100.00%) across all four exposure categories. By aggregating patch-level probabilistic outputs across each full-sized micrograph, the deep convolutional neural network extracted rich, multi-scale hierarchical texture patterns and spatial feature distributions that completely bypassed localized noise and boundary artifacts, outperforming both first-order geometric descriptors and thresholded semantic segmentation. Within this majority voting framework, individual patches within a single micrograph do not always achieve 100% agreement toward the true ground-truth label; however, because the overwhelming majority of constituent patches are correctly predicted, the aggregated macro-level decision consistently yields a perfect 100.00% micrograph-level accuracy.
+
+<img width="700" height="632" alt="image" src="https://github.com/user-attachments/assets/cb34ab30-783f-423a-8da2-7a48583f4e99" />
+
+
+
+Furthermore, mapping these patch-level predictions back onto their spatial coordinates produces a detailed classification heatmap that provides critical insights into localized degradation heterogeneities within a single sample. Rather than treating the micrograph as a monolithic structure, this spatial mapping reveals intra-sample variations in degradation severity across different micro-regions. For instance, in specimens exposed to 500 hours of ultraviolet radiation, spatial heatmaps demonstrate that certain micro-regions exhibit negligible surface damage and are locally identified as unexposed state (0 hours), whereas neighboring patches within the same micrograph display advanced degradation signatures. This granular spatial representation delivers highly valuable diagnostic information regarding localized degradation kinetics and non-uniform wear patterns that standard global metrics inherently fail to capture.
+
+<img width="1357" height="573" alt="image" src="https://github.com/user-attachments/assets/71c926fc-a95f-40e8-b658-c3ac8a82c535" />
+
+Spatial prediction heatmap generated by the ResNet-50 patch-level classification pipeline on an SEM micrograph exposed to 500 hours of accelerated UV degradation ($T=500\text{ h}$). The vast majority of localized patches are correctly identified as T=500 h, while three isolated patches are predicted as unexposed control material (T=0 h). Visual inspection confirms that these three misclassified regions exhibit minimal microstructural fragmentation and low local surface damage, demonstrating the capability of the patch-based approach to resolve intra-sample degradation heterogeneities and localized wear variations within a single micrograph.
+
 
 **Research Contributions**
 
