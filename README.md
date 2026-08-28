@@ -38,10 +38,14 @@ Distribution for steel 1045
 <img width="1289" height="392" alt="Figure_1_b" src="https://github.com/user-attachments/assets/841ec6f3-b90b-4388-8080-4b7d2577e9ec" />
 
 
-An example of a reference image for file "Acero T0B-12_e.jpg"
+An example of a reference image for file "Acero T0B-12_e.jpg" for the case T=0
 
 <img width="1768" height="619" alt="image" src="https://github.com/user-attachments/assets/4e2af2c1-7c0f-4426-9950-8c4bc7dadb71" />
+An example of an image ( file "Acero 1045 500C 1500 T1500A-13.jpg"  ) for T= 1500
 
+<img width="1360" height="541" alt="image" src="https://github.com/user-attachments/assets/2185a684-6c14-460c-8297-a9ee86237d99" />
+
+It can be seen that after a degradation process aplied by 1500 UV time there is an increase in fragmented lammelae and spheriodization
 
 **Methodology**
 
