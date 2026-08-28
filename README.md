@@ -89,7 +89,8 @@ Training for the Resnet 50 model
 
 Segmentation performance was measured against the ground truth over the 15 selected images and mean IoU was computed only for the UNET model. The results are presented in the next table
 
-<img width="866" height="329" alt="image" src="https://github.com/user-attachments/assets/9c70754f-f01b-4dca-8810-9e4d7886e8a1" />
+<img width="851" height="148" alt="image" src="https://github.com/user-attachments/assets/dfd05e05-984e-4133-92c6-00664728b245" />
+
 
 An example of the segmentation compared to the reference ground truth is presented in the next image
 
