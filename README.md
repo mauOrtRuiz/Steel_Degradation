@@ -45,9 +45,9 @@ An example of a reference image for file "Acero T0B-12_e.jpg"
 
 **Methodology**
 
-The proposed pipeline evaluates three distinct computational frameworks to estimate microstructural degradation time ($0\text{ h}$, $500\text{ h}$, $1,000\text{ h}$, and 1,500\text{ h}) under accelerated ultraviolet (UV) exposure using high-resolution SEM micrographs. The methodological workflow comprises data preparation, model training, statistical thresholding, and macro-level performance evaluation across all approaches.
+The proposed pipeline evaluates three distinct computational frameworks to estimate microstructural degradation time (0 h, 500 h, 1,000 h, and 1,500 h) under accelerated ultraviolet (UV) exposure using high-resolution SEM micrographs. The methodological workflow comprises data preparation, model training, statistical thresholding, and macro-level performance evaluation across all approaches.
 
-Approach 1: U-Net Semantic Segmentation and Morphological ThresholdingA U-Net architecture was trained to perform semantic segmentation of the microstructural phases. Following model convergence:The segmented masks were processed to extract morphological metrics, specifically quantifying the relative phase area fraction ($\%F$) of degraded regions and lamellar structures.A rigorous statistical analysis was conducted on the distribution of $\%F$ across exposure intervals ($0\text{ h}$ to $1,500\text{ h}$) to establish quantitative cutoff thresholds (decision boundaries).Degradation time was assigned deterministically based on these empirical percentage thresholds.
+Approach 1: U-Net Semantic Segmentation and Morphological Thresholding. A U-Net architecture was trained to perform semantic segmentation of the microstructural phases. Following model convergence:The segmented masks were processed to extract morphological metrics, specifically quantifying the relative phase area fraction (%F) of degraded regions and lamellar structures.A rigorous statistical analysis was conducted on the distribution of %F across exposure intervals (0h to 1500h) to establish quantitative cutoff thresholds (decision boundaries).Degradation time was assigned deterministically based on these empirical percentage thresholds.
 
 Approach 2: Direct Classification via ResNet-50
 A ResNet-50 deep convolutional neural network was trained for direct, end-to-end multi-class classification using the original, unsegmented image patches:
@@ -57,10 +57,10 @@ The architecture leveraged hierarchical residual connections to learn fine-grain
 During inference on full-sized micrographs (including the blind dataset), a macro-level soft-voting strategy was implemented, aggregating the probabilistic patch-level predictions across each micrograph to yield the final predicted degradation stage.
 
 
-Approach 3: Classical Deterministic 2D Fractal Dimension AnalysisTo evaluate whether first-order geometric metrics could achieve class separability:A classical Box-Counting algorithm was applied to map the total boundary/edge density ($D$) across all microstructural patches.Statistical separability tests (ANOVA $F$-test and Kruskal-Wallis $H$-test) and threshold-based classification rules were executed to assess whether $D$ alone could differentiate between degradation stages.
+Approach 3: Classical Deterministic 2D Fractal Dimension AnalysisTo evaluate whether first-order geometric metrics could achieve class separability:A classical Box-Counting algorithm was applied to map the total boundary/edge density (D) across all microstructural patches.Statistical separability tests (ANOVA F-test and Kruskal-Wallis H-test) and threshold-based classification rules were executed to assess whether D alone could differentiate between degradation stages.
 
 
-Methodological Performance ComparisonTo rigorously compare the predictive capability of all three approaches on the blind test dataset ($N=15$), classification performance was quantified using standard macro-averaged evaluation metrics:
+Methodological Performance ComparisonTo rigorously compare the predictive capability of all three approaches on the blind test dataset (N=15), classification performance was quantified using standard macro-averaged evaluation metrics:
 
 <img width="748" height="171" alt="image" src="https://github.com/user-attachments/assets/c3a13368-f578-45e2-ad58-48dea9dff05c" />
 
