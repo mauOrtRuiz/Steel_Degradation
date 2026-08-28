@@ -71,7 +71,7 @@ The trainig curves:
 
  **Results**
 
- A subset of 10 images of higher resolution were tested and segmented by this framework, and segmentation performance was obtained. For the +D proposal, time degradation was also estimated.
+ A subset of 15 images of higher resolution were tested and for evaluated for segmentation task and for clasification task into the 4 differnt intervals (classes) by this framework. First, segmentation performance was obtained. For the +D proposal, time degradation was also estimated.
  
  <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
 
