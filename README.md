@@ -45,15 +45,26 @@ An example of a reference image for file "Acero T0B-12_e.jpg"
 
 **Methodology**
 
-A U-Net model (Ronneberger) was selected initially to perform the segmentation of a microscope image, and performance was measured by means of accuracy, Jaccard, and IoU. This model has been extensively used in the medical field, and the results have been satisfactory.
+The proposed pipeline evaluates three distinct computational frameworks to estimate microstructural degradation time ($0\text{ h}$, $500\text{ h}$, $1,000\text{ h}$, and 1,500\text{ h}) under accelerated ultraviolet (UV) exposure using high-resolution SEM micrographs. The methodological workflow comprises data preparation, model training, statistical thresholding, and macro-level performance evaluation across all approaches.
+
+Approach 1: U-Net Semantic Segmentation and Morphological ThresholdingA U-Net architecture was trained to perform semantic segmentation of the microstructural phases. Following model convergence:The segmented masks were processed to extract morphological metrics, specifically quantifying the relative phase area fraction ($\%F$) of degraded regions and lamellar structures.A rigorous statistical analysis was conducted on the distribution of $\%F$ across exposure intervals ($0\text{ h}$ to $1,500\text{ h}$) to establish quantitative cutoff thresholds (decision boundaries).Degradation time was assigned deterministically based on these empirical percentage thresholds.
+
+Approach 2: Direct Classification via ResNet-50
+A ResNet-50 deep convolutional neural network was trained for direct, end-to-end multi-class classification using the original, unsegmented image patches:
+
+The architecture leveraged hierarchical residual connections to learn fine-grained texture gradients and spatial distribution patterns of carburbide spheroidization without requiring manual feature engineering.
+
+During inference on full-sized micrographs (including the blind dataset), a macro-level soft-voting strategy was implemented, aggregating the probabilistic patch-level predictions across each micrograph to yield the final predicted degradation stage.
 
 
-As the main purpose of the research is to correlate the degradation process against time, the T variable in the dataset indicates the time exposed directly to UV light to accelerate degratatión; however, it can be asociated to the aging time and is considered a valuable parameter that can be used to give extra information to the DL model. Initially, a Physics-Informed Network (PINN) was evaluated by incorporating the Avrami-Kolmogorov (JMAK) phase transformation kinetic model into the loss function. A Physics-Informed Neural Network (PINN) is a neural network that embeds physical laws, expressed as differential equations, directly into its loss function to constrain model learning. However, incorporating this temporal kinetic penalty into a standard U-Net architecture yielded no statistically significant improvement over an unconstrained baseline model.
-
-To have a stronger influence of the model from the time parameter, a conditioned network was next explored, followed by the modulated FiLM architecture (E. Perez). This network was originally presented as a successful framework to process images with data coming from different questions about the image. In our approach, this multimodal system only involves the image alongside a time variable that determines the age degradation, thus demonstrating the relevance of modulating the network with this parameter. This model was successfully trained, with faster convergence and improved training accuracy. Moreover, accuracy was also improved in the overall results.
+Approach 3: Classical Deterministic 2D Fractal Dimension AnalysisTo evaluate whether first-order geometric metrics could achieve class separability:A classical Box-Counting algorithm was applied to map the total boundary/edge density ($D$) across all microstructural patches.Statistical separability tests (ANOVA $F$-test and Kruskal-Wallis $H$-test) and threshold-based classification rules were executed to assess whether $D$ alone could differentiate between degradation stages.
 
 
-To address the problem of determining time degradation, a modification of the original FiLM is proposed, which we name FiLM+D, in which a demodulation branch is integrated into the previous FiLM model, removing the conditional input. Thus, this framework addresses both the forward conditioning (modulation) and the inverse inference (demodulation) of a continuous physical parameter associated with microstructural degradation in spheroidal geometries. Transfer learning was used to train the model by using the previous coefficients obtained from the FiLM model. Because this model is almost equal to the FiLM model, the training time was much faster, as can be seen in the accuracy and loss curves. Blue is the standard U-Net, green is the FiLM model, and red is the FiLM+D (our contribution). As can be seen in the training, the model completed the training in less than half the epochs (mainly due to transfer learning, and also because both are indeed almost the same architecture).
+Methodological Performance ComparisonTo rigorously compare the predictive capability of all three approaches on the blind test dataset ($N=15$), classification performance was quantified using standard macro-averaged evaluation metrics:
+
+<img width="748" height="171" alt="image" src="https://github.com/user-attachments/assets/c3a13368-f578-45e2-ad58-48dea9dff05c" />
+
+The trainig curves:
 
 <img width="1363" height="412" alt="image" src="https://github.com/user-attachments/assets/16c1df0c-4d8c-45b0-b225-d37826686ce6" />
 
