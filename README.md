@@ -68,14 +68,20 @@ Methodological Performance ComparisonTo rigorously compare the predictive capabi
 
 <img width="748" height="171" alt="image" src="https://github.com/user-attachments/assets/c3a13368-f578-45e2-ad58-48dea9dff05c" />
 
-The trainig curves:
+The trainig curves for the unet model:
 
-<img width="1363" height="412" alt="image" src="https://github.com/user-attachments/assets/16c1df0c-4d8c-45b0-b225-d37826686ce6" />
+<img width="1117" height="440" alt="image" src="https://github.com/user-attachments/assets/5697b2d8-7f7d-47d7-8672-78b326a34dfa" />
+
+Training for the Resnet 50 model
+
+<img width="1003" height="410" alt="image" src="https://github.com/user-attachments/assets/14605e9a-307c-47fc-b98d-c68010362429" />
 
 
  **Results**
 
- A subset of 15 images of higher resolution were tested and for evaluated for segmentation task and for clasification task into the 4 differnt intervals (classes) by this framework. First, segmentation performance was obtained. For the +D proposal, time degradation was also estimated.
+ A subset of 15 images of higher resolution were tested and for evaluated for segmentation task and for clasification task into the 4 differnt intervals (classes) by this framework. 
+
+ Both deep learning architectures, U-Net and ResNet-50, were trained using PyTorch on an NVIDIA GPU environment with identical data splitting strategies to ensure a fair experimental comparison. To enhance model generalization and mitigate overfitting across microstructural variations, dynamic data augmentation techniques—including random horizontal and vertical flips, affine transformations, and intensity adjustments—were applied continuously throughout the training process. All input patches were resized to a standardized resolution of 256×256 pixels.The U-Net model was optimized for pixel-wise multi-class semantic segmentation of the microstructural phases. To effectively handle potential class imbalances across fine lamellar and spheroidized features, a hybrid loss function combining Focal Loss and Dice Loss was implemented. Optimization was driven by the AdamW algorithm with an initial learning rate of 1 x 10^(-4) and a weight decay coefficient of 1x 10^(-4).  The network was trained for up to 35 epochs using a batch size of 16, with early stopping enforced after 15 epochs of non-improving validation Dice similarity scores to prevent over-segmentation artifacts. The ResNet-50 architecture was initialized with ImageNet pre-trained weights and fine-tuned for direct four-class categorization corresponding to the UV exposure intervals of 0, 500, 1000, and 1500 hours using unsegmented patches. The model was optimized using standard categorical cross-entropy loss to evaluate predicted softmax probabilities against ground-truth labels. 
  
  <img width="4041" height="791" alt="segmentation_Comparison" src="https://github.com/user-attachments/assets/ee070f78-c3cd-4835-bb36-a861e1b58efe" />
 
